@@ -4,7 +4,7 @@ Its literally the same functionality of the original youtube-dl, but more in my 
 
 Last tested with version: `2018.03.10`
 
-**IMPORTANT:** This version does not come with youtube-dl pre-installed. install it and have it in your path, else its not going to work.**
+**IMPORTANT:** This version does not come with youtube-dl pre-installed. install it and have it in your path, else its not going to work.
 
 This module also improves on some things like better process cleanup with some updated methods.
 
