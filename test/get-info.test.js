@@ -4,7 +4,8 @@ const getInfo = require('../src/get-info')
 
 test('gets info', async t => {
   const info = await getInfo('https://www.youtube.com/watch?v=RB4nFoA63rs', {
-    format: 'best'
+    format: 'best',
+    extract_audio: true
   })
   const keys = [
     'title',
