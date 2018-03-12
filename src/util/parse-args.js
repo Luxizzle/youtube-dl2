@@ -88,6 +88,10 @@ const withValue = [
   'convert-subs'
 ]
 
+/**
+ * Parses youtube-dl flags from an object to an argument array.
+ */
+
 function parseArgs(args) {
   let newArgs = []
 

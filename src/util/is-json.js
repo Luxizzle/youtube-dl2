@@ -1,3 +1,7 @@
+/**
+ * Dirty wrapper to check if data is json format
+ */
+
 module.exports = function(data) {
   try {
     JSON.parse(data)
