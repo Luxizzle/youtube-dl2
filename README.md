@@ -43,6 +43,8 @@ Downloads url and returns it as a stream.
 
 Gets info of url in `--dump-json` format
 
+Returns a promise
+
 ## Downloading audio
 
 Due to the nature of youtube-dl's outputting to stdout, it does not support flags like `--extract-audio`. There are a few ways around this.
