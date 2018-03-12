@@ -1,5 +1,7 @@
 # youtube-dl2
 
+WIP - Not exactly functional right now.
+
 Its literally the same functionality of the original youtube-dl, but more in my style and hopefully better tested and updated
 
 Last tested with version: `2018.03.10`
