@@ -4,7 +4,11 @@ const p = require('./util/p')
 const execa = require('execa')
 const debug = require('debug')('youtube-dl2:get-info')
 
-async function getInfo(url, options = {}) {
+async function getInfo(urls, options = {}) {
+  urls = Array.isArray(urls)
+    ? urls
+    : [urls]
+
   options = Object.assign({
     dump_json: true,
     format: 'best'
@@ -13,16 +17,22 @@ async function getInfo(url, options = {}) {
   let args = parseArgs(options)
 
   args.push('--')
-  args.push(url)
+  urls.forEach((url) => {
+    args.push(url)
+  })
 
   let [ err, result ] = await p(execa('youtube-dl', args))
-
   if (err) throw err
-  if (!isJson(result.stdout)) throw new Error('Output is not json')
 
-  data = JSON.parse(result.stdout)
+  let info = result.stdout.trim().split(/\r?\n/).map((data) => {
+    if (!isJson(data)) throw new Error('Output is not json')
 
-  return data
+    return JSON.parse(data)
+  })
+
+  if (info.length === 1) info = info[0]
+
+  return info
 }
 
 module.exports = getInfo

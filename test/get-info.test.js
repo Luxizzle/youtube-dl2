@@ -2,11 +2,8 @@ const test = require('ava')
 
 const getInfo = require('../src/get-info')
 
-test('gets info', async t => {
-  const info = await getInfo('https://www.youtube.com/watch?v=RB4nFoA63rs', {
-    format: 'best',
-    extract_audio: true
-  })
+test('single video', async t => {
+  const info = await getInfo('https://www.youtube.com/watch?v=RB4nFoA63rs')
   const keys = [
     'title',
     'uploader',
@@ -21,6 +18,8 @@ test('gets info', async t => {
     'webpage_url',
     'webpage_url_basename'
   ]
+  t.log(info)
+
   const info2 = {}
 
   keys.forEach(key => {
@@ -28,4 +27,15 @@ test('gets info', async t => {
   })
 
   t.snapshot(info2)
+})
+
+test('multiple videos', async t => {
+  t.true(Array.isArray(await getInfo([
+    'https://www.youtube.com/watch?v=RB4nFoA63rs',
+    'https://youtu.be/imMSZLOElBw'
+  ])))
+})
+
+test('playlist', async t => {
+  t.true(Array.isArray(await getInfo('https://www.youtube.com/playlist?list=PL4AA2CAF1947F471A')))
 })
