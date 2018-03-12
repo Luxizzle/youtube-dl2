@@ -43,6 +43,8 @@ Downloads url and returns it as a stream.
 
 Gets info of url in `--dump-json` format
 
+Url can be some sort of playlist or an array of urls too.
+
 Returns a promise
 
 ## Downloading audio
