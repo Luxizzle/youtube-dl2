@@ -28,7 +28,7 @@ function parseInfo(info) {
 }
 
 test('single video', async t => {
-  let info = await getInfo('https://www.youtube.com/watch?v=RB4nFoA63rs')
+  let info = await getInfo('https://www.youtube.com/watch?v=RB4nFoA63rs', { format: 'best' })
  
   info = parseInfo(info)
 
@@ -39,7 +39,7 @@ test('multiple videos', async t => {
   let info = await getInfo([
     'https://www.youtube.com/watch?v=RB4nFoA63rs',
     'https://youtu.be/imMSZLOElBw'
-  ])
+  ], { format: 'best' })
 
   t.true(Array.isArray(info))
 
@@ -49,7 +49,7 @@ test('multiple videos', async t => {
 })
 
 test('playlist', async t => {
-  let info = await getInfo('https://www.youtube.com/playlist?list=PL4AA2CAF1947F471A')
+  let info = await getInfo('https://www.youtube.com/playlist?list=PL4AA2CAF1947F471A', { format: 'best' })
 
   t.true(Array.isArray(info))
 

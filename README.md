@@ -37,7 +37,13 @@ This just makes it a bit easier to manipulate and read.
 
 Downloads url and returns it as a stream.
 
+Returns an execa returnable where .stdout is the output stream. This is subject to change.
+
 **Note:** Does not support arguments like `extract_audio` due to the nature of youtube-dl outputting to stdout. Read more [below](#downloading-audio).
+
+#### youtubedl2.buffer(url, [options])
+
+Returns a promise which returns the file as buffer
 
 #### youtubedl2.getInfo(url, [options])
 

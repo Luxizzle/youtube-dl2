@@ -4,22 +4,17 @@ const p = require('./util/p')
 const execa = require('execa')
 const debug = require('debug')('youtube-dl2:get-info')
 
-async function getInfo(urls, options = {}) {
-  urls = Array.isArray(urls)
-    ? urls
-    : [urls]
+async function getInfo(urls, args = {}) {
+  urls = Array.isArray(urls) ? urls : [urls]
 
-  options = Object.assign({
-    dump_json: true,
-    format: 'best'
-  }, options)
+  args = Object.assign({
+    dump_json: true
+  }, args)
 
-  let args = parseArgs(options)
+  args = parseArgs(args)
 
   args.push('--')
-  urls.forEach((url) => {
-    args.push(url)
-  })
+  urls.forEach((url) => { args.push(url) })
 
   let [ err, result ] = await p(execa('youtube-dl', args))
   if (err) throw err

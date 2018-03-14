@@ -103,9 +103,9 @@ function parseArgs(args) {
 
     let arg = withValue.indexOf(flag) > -1
       ? `--${flag}=${value}`
-      : `--${flag}`
+      : value ? `--${flag}` : false
 
-      newArgs.push(arg)
+    if (arg) newArgs.push(arg)
   }
 
   return newArgs
