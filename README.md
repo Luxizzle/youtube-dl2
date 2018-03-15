@@ -45,6 +45,12 @@ Returns an execa returnable where .stdout is the output stream. This is subject 
 
 Returns a promise which returns the file as buffer
 
+**Note:** Not recommended as it writes everything to memory.
+
+#### youtubedl2.file(filename, url, [options])
+
+Returns a promise which resolves when file is written.
+
 #### youtubedl2.getInfo(url, [options])
 
 Gets info of url in `--dump-json` format

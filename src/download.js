@@ -1,9 +1,10 @@
-const DuplexStream = require('stream').Duplex
+const through2 = require('through2')
 const getInfo = require('./get-info')
 const p = require('./util/p')
 const parseArgs = require('./util/parse-args')
 const execa = require('execa')
-const streamToPromise = require('stream-to-promise')
+const fs = require('fs-extra')
+const getStream = require('get-stream')
 
 function stream(urls, args = {}) {
   urls = Array.isArray(urls) ? urls : [urls]
@@ -18,49 +19,52 @@ function stream(urls, args = {}) {
   args.push('--')
   urls.forEach((url) => { args.push(url) })
 
-  let process = execa('youtube-dl', args)
+  let dlProcess = execa('youtube-dl', args, {
+    maxBuffer: Infinity
+  })
 
-  return process
+  let stream = through2()
+
+  dlProcess.stdout
+    .pipe(stream)
+
+  dlProcess.catch((err) => stream.destroy(err))
+ 
+  return stream
 }
 
-async function buffer(urls, args = {}) {
+function buffer(urls, args = {}) {
   return new Promise(async (resolve, reject) => {
     urls = Array.isArray(urls) ? urls : [urls]
 
-    //if (urls.length > 1) return reject( new Error('Playlists and multiple urls not supported right now') )
-    //let [err, info] = await p(getInfo(urls, args))
-    //if (err) return reject( err )
-    //if (Array.isArray(info)) return reject( new Error('Playlists and multiple urls not supported right now') )
-
-    let process = stream(urls, args)
+    let dlStream = stream(urls, args)
 
     let data = []
-    let errorData = []
-    let isError = false
 
-    process.stdout
+    dlStream
       .on('data', (chunk) => {
-        if (isError) return
         data.push(chunk)
       })
-      .on('end', () => {
-        if (isError) return
-        resolve( Buffer.concat(data) )
+      .on('error', (err) => {
+        reject(err)
+      })
+      .on('finish', () => {
+        resolve(Buffer.concat(data))
       })
 
-    process.stderr
-      .on('data', async (chunk) => {
-        isError = true
-        errorData.push(chunk)
-      })
-      .on('end', () => {
-        reject( Buffer.concat(errorData).toString() )
-      })
   })
+}
 
+function file(filename, urls, args) {
+  let dlStream = stream(urls, args)
+  let file = fs.createWriteStream(filename)
+  dlStream.pipe(file)
+
+  return getStream(dlStream)
 }
 
 module.exports = {
   stream,
-  buffer
+  buffer,
+  file
 }

@@ -1,3 +1,5 @@
+// haha yes hardcoded values fight me
+
 const flagAliases = {
   h: 'help',
   U: 'update',
