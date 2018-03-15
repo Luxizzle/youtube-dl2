@@ -18,7 +18,7 @@ End goal is a more testable, updated and controllable youtube-dl.
 
 ## Usage
 
-#### options
+### options
 
 Options are not pushed to youtube-dl in the normal fashion, instead you can pass an object like this:
 ```js
@@ -33,7 +33,7 @@ Underscores (`_`) are replaced with minus signs (`-`) and aliases are replaced b
 
 This just makes it a bit easier to manipulate and read.
 
-#### youtubedl2(url, [options])
+### youtubedl2(url, [options])
 
 Downloads url and returns it as a stream.
 
@@ -41,17 +41,17 @@ Returns an execa returnable where .stdout is the output stream. This is subject 
 
 **Note:** Does not support arguments like `extract_audio` due to the nature of youtube-dl outputting to stdout. Read more [below](#downloading-audio).
 
-#### youtubedl2.buffer(url, [options])
+### youtubedl2.buffer(url, [options])
 
 Returns a promise which returns the file as buffer
 
 **Note:** Not recommended as it writes everything to memory.
 
-#### youtubedl2.file(filename, url, [options])
+### youtubedl2.file(filename, url, [options])
 
 Returns a promise which resolves when file is written.
 
-#### youtubedl2.getInfo(url, [options])
+### youtubedl2.getInfo(url, [options])
 
 Gets info of url in `--dump-json` format
 
@@ -63,7 +63,7 @@ Returns a promise
 
 Due to the nature of youtube-dl's outputting to stdout, it does not support flags like `--extract-audio`. There are a few ways around this.
 
-#### Selecting audio format
+### Selecting audio format
 
 The `format` option allows a few different arguments.
 
@@ -73,7 +73,7 @@ The `format` option allows a few different arguments.
 
 More info here: <https://github.com/rg3/youtube-dl/blob/master/README.md#format-selection>
 
-#### Manually converting it with ffmpeg
+### Manually converting it with ffmpeg
 
 Example: `ffmpeg -i video.mp4 -f mp3 -ab 192000 -vn music.mp3`
 
