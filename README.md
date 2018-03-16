@@ -1,7 +1,5 @@
 # youtube-dl2
 
-WIP - Not exactly functional right now.
-
 Its literally the same functionality of the original youtube-dl, but more in my style and hopefully better tested and updated
 
 Last tested with version: `2018.03.10`
@@ -80,5 +78,3 @@ Example: `ffmpeg -i video.mp4 -f mp3 -ab 192000 -vn music.mp3`
 This is just a really simple example, but you can get more complicated.
 
 Check the [ffmpeg docs](https://ffmpeg.org/ffmpeg.html) for more info.
-
-**Note:** I might implement this natively into the module itself.
