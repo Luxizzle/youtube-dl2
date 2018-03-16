@@ -17,6 +17,9 @@ test('returns a stream', async t => {
 
   result.pipe(fs.createWriteStream('tmp/stream.mp4'))
   await getStream(result)
+
+  const size = (await fs.stat('tmp/stream.mp4')).size
+  t.is(size, 41446725)
 })
 
 test('.buffer returns a buffer', async t => {
@@ -25,6 +28,8 @@ test('.buffer returns a buffer', async t => {
   t.true(result instanceof Buffer)
 
   await fs.writeFile('tmp/buffer.mp4', result)
+  const size = (await fs.stat('tmp/buffer.mp4')).size
+  t.is(size, 41446725)
 })
 
 test('.file Returns a promise', async t => {
@@ -33,6 +38,9 @@ test('.file Returns a promise', async t => {
   t.true(result instanceof Promise)
 
   await result
+
+  const size = (await fs.stat('tmp/file.mp4')).size
+  t.is(size, 41446725)
 })
 
 
